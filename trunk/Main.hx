@@ -65,10 +65,6 @@ private class Game extends Sprite {
         }
         var rectangleParticle = new RectangleParticle(250, 300, 300, 50, 0.5, true);
         group.addParticle(rectangleParticle);
-        var r1 = new RectangleParticle(600, 100, 20, 20, 0.5, true);
-        group.addParticle(r1);
-        var r2 = new RectangleParticle(600, 100, 20, 20, 0.5, true);
-        group.addParticle(r2);
         APEngine.addGroup(group);
         
         

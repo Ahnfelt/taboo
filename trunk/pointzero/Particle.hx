@@ -39,6 +39,18 @@ class Particle {
     this.forceAccum = Vector2f.add(this.forceAccum, force);
   }
 
+  public function hasFiniteMass() : Bool {
+    return this.inverseMass!=0;
+  }
+
+  public function getMass() : Float {
+    if (this.inverseMass!=0) {
+      return 1/this.inverseMass;
+    } else {
+      throw "Particle's mass is not finite!";
+    }
+  }
+
   public function getPosition() : Vector2f {
     return this.position;
   }

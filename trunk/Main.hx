@@ -51,22 +51,16 @@ private class Game extends Sprite {
 
         APEngine.init(1 / 4);
         APEngine.container = this;
-        APEngine.addMasslessForce(new Vector(0, 3));
+        APEngine.addMasslessForce(new Vector(0, 9));
         // APEngine.addGroup( ... ); - add objects
         // - set up collisions
         var group: Group = new Group();
         group.collideInternal = true;
-        var i = 0;
-        while(i < 20) {
-            var circleParticle = new CircleParticle(200 + Std.random(100), 10 - Std.random(100), 10);
-            group.addParticle(circleParticle);
-            ball = circleParticle;
-            i++;
-        }
-        var rectangleParticle = new RectangleParticle(250, 300, 300, 50, 0.5, true);
-        group.addParticle(rectangleParticle);
+        ball = new WheelParticle(200 + Std.random(100), 10 - Std.random(100), 10);
+        group.addParticle(ball);
+        group.addParticle(new RectangleParticle(200, 300, 300, 50, 0.5, true));
+        group.addParticle(new RectangleParticle(420, 300, 300, 50, -1, true));
         APEngine.addGroup(group);
-        
         
         addEventListener(Event.ENTER_FRAME, enterFrameHandler);
         stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
@@ -83,26 +77,45 @@ private class Game extends Sprite {
         fps.EndCalc();
         APEngine.paint();
         
-        if(direction < 0) {
-            ball.velocity.x = -5;
-        } else if(direction > 0) {
-            ball.velocity.x = 5;
+        if(players[0].consumeJump()) {
+            ball.velocity = ball.velocity.plus(new Vector(0, -10));
+        }
+        if(players[0].getKey(Key.Left) && ball.velocity.x > -5) {
+            ball.addMasslessForce(new Vector(-5, 0));
+        }
+        if(players[0].getKey(Key.Right) && ball.velocity.x < 5) {
+            ball.addMasslessForce(new Vector(5, 0));
         }
     }
 
     private function keyDownHandler(event: KeyboardEvent): Void {
         switch(event.keyCode) {
             case Keyboard.UP:
-                ball.velocity = ball.velocity.plus(new Vector(0, -5));
+                players[0].setKey(Key.Jump, true);
+            case Keyboard.DOWN:
+                players[0].setKey(Key.Duck, true);
+            case Keyboard.SPACE:
+                players[0].setKey(Key.Action, true);
             case Keyboard.LEFT:
-                direction = -1;
+                players[0].setKey(Key.Left, true);
             case Keyboard.RIGHT:
-                direction = 1;
+                players[0].setKey(Key.Right, true);
         }
     }
     
     private function keyUpHandler(event: KeyboardEvent): Void {
-        direction = 0;
+        switch(event.keyCode) {
+            case Keyboard.UP:
+                players[0].setKey(Key.Jump, false);
+            case Keyboard.DOWN:
+                players[0].setKey(Key.Duck, false);
+            case Keyboard.SPACE:
+                players[0].setKey(Key.Action, false);
+            case Keyboard.LEFT:
+                players[0].setKey(Key.Left, false);
+            case Keyboard.RIGHT:
+                players[0].setKey(Key.Right, false);
+        }
     }
 }
 

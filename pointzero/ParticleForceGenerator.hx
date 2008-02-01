@@ -2,6 +2,8 @@ package pointzero;
 
 import pointzero.Particle;
 
-class ParticleForceGenerator {
+interface ParticleForceGenerator {
+  
+ function updateForce(particle : Particle, duration : Float) : Void;
 
 }

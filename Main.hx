@@ -59,7 +59,11 @@ private class Game extends Sprite {
         group.collideInternal = true;
         APEngine.addGroup(group);
         
-        group.addParticle(new WheelParticle(200 + Std.random(100), 10 - Std.random(100), 10));
+        group.addComposite(new Box(50, 100, 30, 30, Std.random(600) / 100.0));
+        group.addComposite(new Capsule(50, 50, 60, 20, Std.random(600) / 100.0));
+        
+        for(i in 0...10)
+            group.addParticle(new WheelParticle(200 + Std.random(100), 10 - Std.random(100), 10));
         group.addParticle(new RectangleParticle(200, 300, 350, 50, 0.5, true));
         group.addParticle(new RectangleParticle(420, 300, 300, 50, -1, true));
 
@@ -91,7 +95,7 @@ private class Game extends Sprite {
 		group.addComposite(man);
 		*/
 
-        body = new RectangleParticle(210, 50, 30, 20, 1.6, false, 1, 0);		
+        body = new RectangleParticle(210, 50, 30, 10, 1.6, false, 1, 0);		
 		group.addParticle(body);
         
         addEventListener(Event.ENTER_FRAME, enterFrameHandler);

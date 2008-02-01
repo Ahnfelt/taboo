@@ -21,10 +21,10 @@ import org.cove.ape.WheelParticle;
 class Box extends Composite {
     public function new(x: Float, y: Float, width: Float, height: Float, radians: Float) {
         super();
-        var nw = new CircleParticle(x, y, 2);
-        var ne = new CircleParticle(x + width, y, 2);
-        var sw = new CircleParticle(x, y + width, 2);
-        var se = new CircleParticle(x + width, y + width, 2);
+        var nw = new CircleParticle(x, y, 1);
+        var ne = new CircleParticle(x + width, y, 1);
+        var sw = new CircleParticle(x, y + width, 1);
+        var se = new CircleParticle(x + width, y + width, 1);
         for(particle in [nw, ne, sw, se])
             addParticle(particle);
         addConstraint(new SpringConstraint(nw, ne, 1, true, 2));

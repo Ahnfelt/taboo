@@ -1,12 +1,21 @@
 class Player {
     private var keyDownMap: Hash<Bool>;
-    private var jumpWaiting: Bool;
+    private var keyWaitingMap: Hash<Bool>;
     
     public function new() {
         keyDownMap = new Hash<Bool>();
-        jumpWaiting = false;
+        keyWaitingMap = new Hash<Bool>();
     }
     
+    /**
+     * Sets the status of a key (true means it's pressed).
+     */
+    public function setKey(key: Key, down: Bool): Void {
+        if(!down || !keyDownMap.get(Std.string(key)))
+            keyWaitingMap.set(Std.string(key), down);
+        keyDownMap.set(Std.string(key), down);
+    }
+
     /**
      * Returns true if the key is currently pressed.
      */
@@ -15,22 +24,13 @@ class Player {
     }
     
     /**
-     * Sets the status of a key (true means it's pressed).
+     * If this key has been pressed, the function returns
+     * true. Subsequent calls return true until the key
+     * is released and pressed again.
      */
-    public function setKey(key: Key, down: Bool): Void {
-        if(key == Key.Jump) {
-            jumpWaiting = down && !keyDownMap.get(Std.string(key));
-        }
-        keyDownMap.set(Std.string(key), down);
-    }
-
-    /**
-     * If there is a jump waiting to happen, the function returns
-     * true and the waiting jump is then cleared.
-     */
-    public function consumeJump(): Bool {
-        var result = jumpWaiting;
-        jumpWaiting = false;
+    public function consumeKey(key: Key): Bool {
+        var result = keyWaitingMap.get(Std.string(key));
+        keyWaitingMap.set(Std.string(key), false);
         return result;
     }
 }

@@ -7,11 +7,11 @@ class Vector2f {
   private var x : Float;
   private var y : Float;
 
-  private static var UP    : Vector2f = new Vector2f(0,1);
-  private static var DOWN  : Vector2f = new Vector2f(0,-1);
-  private static var RIGHT : Vector2f = new Vector2f(1,0);
-  private static var LEFT  : Vector2f = new Vector2f(-1,0);
-  private static var ZERO  : Vector2f = new Vector2f(0,0);
+  public static var UP    : Vector2f = new Vector2f(0,1);
+  public static var DOWN  : Vector2f = new Vector2f(0,-1);
+  public static var RIGHT : Vector2f = new Vector2f(1,0);
+  public static var LEFT  : Vector2f = new Vector2f(-1,0);
+  public static var ZERO  : Vector2f = new Vector2f(0,0);
 
   public function new(x : Float, y : Float) {
     this.x = x;

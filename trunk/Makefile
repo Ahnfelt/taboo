@@ -4,3 +4,6 @@ all: Main.hx Player.hx Key.hx
 run: all index.htm
 	firefox --new-window index.htm &
 
+clean:
+	rm -f Game.swf
+

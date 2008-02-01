@@ -77,7 +77,7 @@ private class Game extends Sprite {
         fps.EndCalc();
         APEngine.paint();
         
-        if(players[0].consumeJump()) {
+        if(players[0].consumeKey(Key.Jump)) {
             ball.velocity = ball.velocity.plus(new Vector(0, -10));
         }
         if(players[0].getKey(Key.Left) && ball.velocity.x > -5) {

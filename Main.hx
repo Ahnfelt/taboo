@@ -38,7 +38,8 @@ class Main {
 
 private class Game extends Sprite {
     private var fps: FPS;
-    private var ball: AbstractParticle;
+    private var man: Composite;
+    private var body: AbstractParticle;
     private var direction: Int;
     private var players: Array<Player>;
 
@@ -56,11 +57,42 @@ private class Game extends Sprite {
         // - set up collisions
         var group: Group = new Group();
         group.collideInternal = true;
-        ball = new WheelParticle(200 + Std.random(100), 10 - Std.random(100), 10);
-        group.addParticle(ball);
-        group.addParticle(new RectangleParticle(200, 300, 300, 50, 0.5, true));
-        group.addParticle(new RectangleParticle(420, 300, 300, 50, -1, true));
         APEngine.addGroup(group);
+        
+        group.addParticle(new WheelParticle(200 + Std.random(100), 10 - Std.random(100), 10));
+        group.addParticle(new RectangleParticle(200, 300, 350, 50, 0.5, true));
+        group.addParticle(new RectangleParticle(420, 300, 300, 50, -1, true));
+
+        /*
+        var man = new Composite();
+        var leftFoot = new CircleParticle(200, 50, 5);
+        var rightFoot = new CircleParticle(220, 50, 5);
+        var bodyParticle = new CircleParticle(210, 35, 10);
+		var leftLeg = new SpringConstraint(body, leftFoot, 0.5, true, 5);
+		var rightLeg = new SpringConstraint(body, rightFoot, 0.5, true, 5);
+		var footChains = new SpringConstraint(leftFoot, rightFoot, 1, true, 5);
+		var leftHand = new CircleParticle(200, 20, 4, false, 0.01);
+		var rightHand = new CircleParticle(220, 20, 4, false, 0.01);
+		man.addParticle(leftHand);
+		man.addParticle(rightHand);
+		man.addConstraint(new SpringConstraint(leftFoot, leftHand, 1, false, 6));
+		man.addConstraint(new SpringConstraint(rightFoot, rightHand, 1, false, 6));
+		man.addConstraint(new SpringConstraint(leftHand, rightHand, 1, false, 4));
+		man.addConstraint(new SpringConstraint(bodyParticle, leftHand, 1, false, 2));
+		man.addConstraint(new SpringConstraint(bodyParticle, rightHand, 1, false, 2));
+		leftFoot.mass = 2;
+		rightFoot.mass = 2;
+		man.addParticle(leftFoot);
+		man.addParticle(rightFoot);
+		man.addParticle(bodyParticle);
+		man.addConstraint(leftLeg);
+		man.addConstraint(rightLeg);
+		man.addConstraint(footChains);
+		group.addComposite(man);
+		*/
+
+        body = new RectangleParticle(210, 50, 30, 20, 1.6, false, 1, 0);		
+		group.addParticle(body);
         
         addEventListener(Event.ENTER_FRAME, enterFrameHandler);
         stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
@@ -78,13 +110,13 @@ private class Game extends Sprite {
         APEngine.paint();
         
         if(players[0].consumeKey(Key.Jump)) {
-            ball.velocity = ball.velocity.plus(new Vector(0, -10));
+            body.addMasslessForce(new Vector(0, -150));
         }
-        if(players[0].getKey(Key.Left) && ball.velocity.x > -5) {
-            ball.addMasslessForce(new Vector(-5, 0));
+        if(players[0].getKey(Key.Left) && body.velocity.x > -3) {
+            body.addMasslessForce(new Vector(-20, 0));
         }
-        if(players[0].getKey(Key.Right) && ball.velocity.x < 5) {
-            ball.addMasslessForce(new Vector(5, 0));
+        if(players[0].getKey(Key.Right) && body.velocity.x < 3) {
+            body.addMasslessForce(new Vector(20, 0));
         }
     }
 
@@ -118,4 +150,5 @@ private class Game extends Sprite {
         }
     }
 }
+
 

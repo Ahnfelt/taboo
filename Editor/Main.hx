@@ -8,7 +8,7 @@ import flash.display.Sprite;
 import flash.display.MovieClip;
 
 class Main {
-    static function main() {
+    public static function main() {
         var g: Graphics = Lib.current.graphics;
         g.beginFill(0xFF0000);
         g.drawRoundRect(0, 0, 800, 600, 20);

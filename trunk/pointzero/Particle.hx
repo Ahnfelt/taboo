@@ -51,6 +51,10 @@ class Particle {
     }
   }
 
+  public function getInverseMass() : Float {
+    return this.inverseMass;
+  }
+
   public function getPosition() : Vector2f {
     return this.position;
   }
@@ -61,6 +65,10 @@ class Particle {
 
   public function getAcceleration() : Vector2f {
     return this.acceleration;
+  }
+
+  public function setVelocity(newVelocity : Vector2f) : Void {
+    this.velocity = newVelocity;
   }
 
 }

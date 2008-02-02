@@ -95,4 +95,8 @@ class Vector2f {
     this.y = newY;
   }
 
+  public function copy() : Vector2f {
+    return new Vector2f(this.x, this.y);
+  }
+
 }

@@ -22,10 +22,14 @@ private class Editor extends Sprite {
     var joints: Array<WallJoint>;
     var mouse: {x: Float, y: Float};
     var gridStep: {x: Float, y: Float};
+    var controlKey: Bool;
+    var shiftKey: Bool;
 
     public function new() {
         super();
     
+        controlKey = false;
+        shiftKey = false;
         gridStep = {x: 30.0, y: 30.0};
         selectedJoint = null;
         joints = [];
@@ -37,6 +41,7 @@ private class Editor extends Sprite {
         Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
         Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, keyHandler);
         Lib.current.stage.addEventListener(MouseEvent.CLICK, mouseClickHandler);
+        Lib.current.stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseClickHandler);
         Lib.current.stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
     }
     
@@ -53,17 +58,33 @@ private class Editor extends Sprite {
                 g.endFill();
             }
         }
-        for(joint in joints) {
-            g.lineStyle(0, 0x000000, 1000);
+        if(!shiftKey || !controlKey) {
+            for(joint in joints) {
+                g.lineStyle(0, 0x000000, 100);
+                g.beginFill(0xFFFFFF);
+                g.drawCircle(joint.x, joint.y, joint.thickness / 2.0);
+                g.endFill();
+            }
+            g.lineStyle(0, 0x000000, 0);
             g.beginFill(0xFFFFFF);
-            g.drawCircle(joint.x, joint.y, joint.thickness / 2.0);
+            g.drawCircle(mouse.x, mouse.y, 2.0);
             g.endFill();
-        }
-        if(selectedJoint != null) {
-            g.lineStyle(1, 0xFFFFFF, 100);
-            g.beginFill(0x000000);
-            g.drawCircle(selectedJoint.x, selectedJoint.y, 3.0);
+            g.beginFill(0x0000FF);
+            g.drawCircle(mouse.x, mouse.y, 1.0);
             g.endFill();
+            if(selectedJoint != null) {
+                g.lineStyle(0, 0x000000, 100);
+                g.beginFill(0x0000FF);
+                g.drawCircle(selectedJoint.x, selectedJoint.y, 3.0);
+                g.endFill();
+                if(controlKey) {
+                    g.lineStyle(1, 0x0000FF, 50);
+                    g.beginFill(0x0000FF);
+                    g.moveTo(selectedJoint.x, selectedJoint.y);
+                    g.lineTo(mouse.x, mouse.y);
+                    g.endFill();
+                }
+            }
         }
     }
 
@@ -85,7 +106,7 @@ private class Editor extends Sprite {
             newJoint = new WallJoint(mouse.x, mouse.y);
             joints.push(newJoint);
         }
-        if(selectedJoint != null && event.shiftKey)
+        if(selectedJoint != null && event.ctrlKey)
             newJoint.addConnection(selectedJoint);
         selectedJoint = newJoint;
         draw();
@@ -94,7 +115,7 @@ private class Editor extends Sprite {
     private function mouseMoveHandler(event: MouseEvent): Void {
         mouse.x = event.stageX;
         mouse.y = event.stageY;
-        if(!event.ctrlKey) {
+        if(!event.altKey) {
             mouse.x = Math.round(mouse.x / gridStep.x) * gridStep.x;
             mouse.y = Math.round(mouse.y / gridStep.y) * gridStep.y;
         }
@@ -111,9 +132,9 @@ private class Editor extends Sprite {
                     selectedJoint = null;
                 }
             case Keyboard.SHIFT:
-                //shiftKey = state;
+                shiftKey = pressed;
             case Keyboard.CONTROL:
-                //controlKey = state;
+                controlKey = pressed;
         }
         draw();
     }

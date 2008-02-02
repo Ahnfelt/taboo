@@ -79,5 +79,20 @@ class Vector2f {
     return component(this);
   }
 
+  public function getX() : Float {
+    return this.x;
+  }
+
+  public function getY() : Float {
+    return this.y;
+  }
+
+  public function setX(newX : Float) : Void {
+    this.x = newX;
+  }
+  
+  public function setY(newY : Float) : Void {
+    this.y = newY;
+  }
 
 }

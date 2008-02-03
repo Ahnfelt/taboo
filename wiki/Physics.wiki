@@ -1,9 +1,9 @@
-#summary One-sentence summary of this page.
+#summary About the physics engine in taboo
 #labels Featured
 
 = Introduction =
 
-Add your content here.
+The physics engine is a 2D rigid-body simulator. Both linear and angular motions are simulated.
 
 
 = Details =

@@ -1,4 +1,5 @@
 #summary The level editor manual.
+#labels Featured
 
 The level editor is where you create and modify levels.
 

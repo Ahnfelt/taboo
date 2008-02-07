@@ -4,8 +4,8 @@ import Math;
 
 class Vector2f {
 
-  private var x : Float;
-  private var y : Float;
+  public var x(default, null) : Float;
+  public var y(default, null) : Float;
 
   public static var UP    : Vector2f = new Vector2f(0,1);
   public static var DOWN  : Vector2f = new Vector2f(0,-1);

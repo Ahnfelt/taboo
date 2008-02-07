@@ -48,16 +48,7 @@ class Quaternion {
       a.r*b.k - a.k*b.r - a.i*b.j - a.j*b.i
     );
   }
-/*
-  public static function add(a : Vector2f, b : Vector2f) : Vector2f {
-    return new Vector2f(a.x+b.x, a.y+b.y);
-  }
-
-  public static function sub(a : Vector2f, b : Vector2f) : Vector2f {
-    return new Vector2f(a.x-b.x, a.y-b.y);
-  }
-
-*/
+  
   public function Magnitude() : Float {
     return magnitude(this);
   }

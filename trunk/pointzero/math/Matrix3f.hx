@@ -59,7 +59,7 @@ class Matrix3f {
              +d[6]*(d[5]*d[1]-d[4]*d[2]);
     if (det!=0) {
       var v = det/1;
-
+      // Joakim checker det her...
       return new Matrix3f(
         (d[8]*d[4]-d[7]*d[5])*v,
        -(d[8]*d[1]-d[7]*d[2])*v,

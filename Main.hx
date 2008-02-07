@@ -63,7 +63,7 @@ private class Game extends Sprite {
         group.addComposite(new Capsule(50, 50, 60, 20, Std.random(600) / 100.0));
         
         for(i in 0...10)
-            group.addParticle(new WheelParticle(200 + Std.random(100), 10 - Std.random(100), 10));
+            group.addParticle(new WheelParticle(200 + Std.random(100), 10 - Std.random(100), 10, 1, 0, 0.1));
         group.addParticle(new RectangleParticle(200, 300, 350, 50, 0.5, true));
         group.addParticle(new RectangleParticle(420, 300, 300, 50, -1, true));
 

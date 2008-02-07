@@ -2,16 +2,22 @@ class WallJoint {
     public var x(default, default): Float;
     public var y(default, default): Float;
     public var thickness(default, default): Float;
-    private var connections: Array<WallJoint>;
+    public var connections(default, null): Array<WallJoint>;
+    public var id(default, null): Int;
+    private static var nextId = 1;
     
-    public function new(x: Float, y: Float, ?thickness: Float, ?connection: WallJoint) {
+    public function new(x: Float, y: Float, ?id: Int) {
+        if(id == null) {
+            this.id = nextId++;
+        } else {
+            if(id >= nextId)
+                nextId = id + 1;
+            this.id = id;
+        }
         this.x = x; 
         this.y = y;
+        this.thickness = 10.0;
         this.connections = [];
-        this.thickness = if(thickness == null) 10.0 else thickness;
-        if(connection != null) {
-            addConnection(connection);
-        }
     }
 
     public function dispose(): Void {
@@ -32,8 +38,5 @@ class WallJoint {
         this.y = y;
     }
 
-    public function iterator(): Iterator<WallJoint> {
-        return connections.iterator();
-    }
 }
 

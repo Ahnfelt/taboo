@@ -19,7 +19,7 @@ class Main {
 
 private class Editor extends Sprite {
     var selectedJoint: WallJoint;
-    var joints: Array<WallJoint>;
+    var level: Level;
     var mouse: {x: Float, y: Float};
     var gridStep: {x: Float, y: Float};
     var controlKey: Bool;
@@ -32,7 +32,7 @@ private class Editor extends Sprite {
         shiftKey = false;
         gridStep = {x: 30.0, y: 30.0};
         selectedJoint = null;
-        joints = [];
+        level = new Level(this);
         mouse = {x: mouseX, y: mouseY};
         draw();
 
@@ -48,8 +48,10 @@ private class Editor extends Sprite {
     private function draw() {
         var g: Graphics = this.graphics;
         g.clear();
-        for(joint in joints) {
-            for(connection in joint) {
+        if(level.playing)
+            return;
+        for(joint in level.joints) {
+            for(connection in joint.connections) {
                 g.lineStyle(Math.min(joint.thickness, connection.thickness), 
                     0xFFFFFF, 100);
                 g.beginFill(0xFFFFFF);
@@ -59,7 +61,7 @@ private class Editor extends Sprite {
             }
         }
         if(!shiftKey || !controlKey) {
-            for(joint in joints) {
+            for(joint in level.joints) {
                 g.lineStyle(0, 0x000000, 100);
                 g.beginFill(0xFFFFFF);
                 g.drawCircle(joint.x, joint.y, joint.thickness / 2.0);
@@ -89,7 +91,7 @@ private class Editor extends Sprite {
     }
 
     private function jointAt(x: Float, y: Float): WallJoint {
-        for(joint in joints) {
+        for(joint in level.joints) {
             var deltaX = joint.x - x;
             var deltaY = joint.y - y;
             var distanceSquared = deltaX * deltaX + deltaY * deltaY;
@@ -104,7 +106,7 @@ private class Editor extends Sprite {
         var newJoint = jointAt(mouse.x, mouse.y);
         if(newJoint == null) {
             newJoint = new WallJoint(mouse.x, mouse.y);
-            joints.push(newJoint);
+            level.joints.push(newJoint);
         }
         if(selectedJoint != null && event.ctrlKey)
             newJoint.addConnection(selectedJoint);
@@ -128,16 +130,17 @@ private class Editor extends Sprite {
             case Keyboard.DELETE:
                 if(pressed && selectedJoint != null) {
                     selectedJoint.dispose();
-                    joints.remove(selectedJoint);
+                    level.joints.remove(selectedJoint);
                     selectedJoint = null;
                 }
             case Keyboard.SHIFT:
                 shiftKey = pressed;
             case Keyboard.CONTROL:
                 controlKey = pressed;
+            case Keyboard.SPACE:
+                level.playing = pressed;
         }
         draw();
     }
 }
-
 

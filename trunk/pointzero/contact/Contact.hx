@@ -1,0 +1,5 @@
+package pointzero;
+
+class Contact {
+
+}

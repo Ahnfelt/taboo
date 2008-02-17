@@ -1,6 +1,7 @@
 package pointzero;
 
 import pointzero.List;
+import pointzero.Contact;
 import pointzero.RigidBody;
 
 class PointZeroEngine {
@@ -8,6 +9,7 @@ class PointZeroEngine {
   private var maxContacts : Int;
   private var iterations : Int;
   private var bodies : List<RigidBody>;
+  private var contacts : List<Contact>;
 
   public function new(maxContacts, iterations) {
     this.iterations = iterations;

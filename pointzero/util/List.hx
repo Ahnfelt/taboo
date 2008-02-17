@@ -1,7 +1,7 @@
-package pointzero;
+package pointzero.util;
 
-import pointzero.ListItem;
-import pointzero.ListIterator;
+import pointzero.util.ListItem;
+import pointzero.util.ListIterator;
 
 /*
 enum Item<T> {

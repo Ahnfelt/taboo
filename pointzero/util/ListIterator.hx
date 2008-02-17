@@ -1,7 +1,7 @@
-package pointzero;
+package pointzero.util;
 
-import pointzero.List;
-import pointzero.ListItem;
+import pointzero.util.List;
+import pointzero.util.ListItem;
 
 class ListIterator<T> {
 

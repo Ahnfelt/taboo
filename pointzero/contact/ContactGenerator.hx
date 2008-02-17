@@ -1,5 +1,5 @@
 package pointzero.contact;
 
-class Contact {
+class ContactGenerator {
 
 }

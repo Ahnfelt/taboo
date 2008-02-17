@@ -4,7 +4,7 @@ import pointzero.math.Vector2f;
 import pointzero.Particle;
 import pointzero.ParticleForceGenerator;
 
-class ParticleSpring implements ParticleForceGenerator {
+class ParticleBuoyance implements ParticleForceGenerator {
   
   private var volume        : Float;
   private var maxDepth      : Float;

@@ -5,8 +5,12 @@ pointzero: pointzeroLib
 	haxe -swf Game.swf -swf-version 9 -swf-header 800:600:60:000000 -main PointZeroTest.hx
 
 pointzeroLib:
-	haxe pointzero/List.hx
-	haxe pointzero/ListIterator.hx
+	haxe pointzero/util/List.hx
+	haxe pointzero/util/ListItem.hx
+	haxe pointzero/util/ListIterator.hx
+	haxe pointzero/contact/Contact.hx
+	haxe pointzero/contact/ContactGenerator.hx
+	haxe pointzero/contact/ContactResolver.hx
 	haxe pointzero/RigidBody.hx
 	haxe pointzero/PointZeroEngine.hx
 

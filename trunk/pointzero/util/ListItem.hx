@@ -1,4 +1,4 @@
-package pointzero;
+package pointzero.util;
 
 class ListItem<T> {
     public var value : T;

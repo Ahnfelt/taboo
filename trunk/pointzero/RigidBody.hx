@@ -37,7 +37,7 @@ class RigidBody {
   private var motion : Float;
   private var lastFrameAcceleration : Vector2f;
  
-  private function calcDerviedData() {
+  public function calcDerviedData() {
     return 0;
   }
 

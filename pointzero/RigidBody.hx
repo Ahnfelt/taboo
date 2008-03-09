@@ -3,6 +3,7 @@ package pointzero;
 import pointzero.math.Vector2f;
 import pointzero.math.Matrix2f;
 import pointzero.math.Matrix3f;
+import pointzero.collision.Shape;
 import Math;
 
 class RigidBody {
@@ -36,7 +37,10 @@ class RigidBody {
   private var canSleep : Bool;
   private var motion : Float;
   private var lastFrameAcceleration : Vector2f;
- 
+
+  // Collision data
+  private var shape(default, null) : Shape;
+
   public function calcDerviedData() {
     return 0;
   }
@@ -88,8 +92,18 @@ class RigidBody {
     this.linearForceAccum = Vector2f.add(this.linearForceAccum, force);
   }
 
-  public function addForceAtPoint(point : Vector2f, force : Vector2f) : Void {
+  public function addTorque(force : Vector2f) : Void {
+    //this.torqueForceAccum = Vector2f.add(this.torqueForceAccum, force);
+    throw "addTorque -Not implemented";
+  }
 
+  public function addForceAtPoint(point : Vector2f, force : Vector2f) : Void {
+    var pt = Vector2f.sub(point, this.position);
+    this.linearAcceleration = Vector2f.add(this.linearAcceleration, force);
+    this.torqueAccum = Vector2f.add(this.torqueAccum, force);
+    //torqueAccum = Vector3f.cross(pt,force);
+    throw "addForceAtPoint - Not implemented";
+    isAwake = true;
   }
 
   public function addForceAtBodyPoint(point : Vector2f, force : Vector2f) : Void {

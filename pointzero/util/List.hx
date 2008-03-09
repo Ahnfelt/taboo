@@ -78,6 +78,31 @@ class List<T> {
       }
     }
 
+    public function remove(element : T) : Void {
+      if (this.first.value==element || this.last.value==element) {
+        if (this.size==1) {
+          this.first = null;
+          this.last = null;
+        } else {
+          if (this.first.value==element) {
+            this.first = this.first.next;
+          } else {
+            this.last = this.last.prev;
+          }
+        }
+      } else {
+        var current = this.first;
+        while (current!=this.last) {
+          if (current.value==element) {
+            current.prev.next = current.next;
+            current.next.prev = current.prev;
+            break;            
+          }
+        }
+      }
+      this.size--;
+    }
+
     public function getFirst() : ListItem<T> {
       return this.first;
     }

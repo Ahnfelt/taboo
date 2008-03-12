@@ -13,6 +13,10 @@ pointzeroLib:
 	haxe pointzero/contact/ContactResolver.hx
 	haxe pointzero/RigidBody.hx
 	haxe pointzero/PointZeroEngine.hx
+	haxe pointzero/collision/Shape.hx
+	haxe pointzero/collision/CollisionObject.hx
+	haxe pointzero/collision/CollisionDetector.hx
+
 
 pointzerorun: pointzero
 	firefox --new-window index.htm &
